@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: my-service
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   selector:
     app: java-app
   ports:
