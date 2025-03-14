@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: java-app-ingress
-  namespace: java-deployment
+  namespace: app
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
