@@ -7,7 +7,7 @@ spec:
     namespace: argocd-app
     server: https://kubernetes.default.svc
   source:
-    path: ./maifest
+    path: ./manifest
     repoURL: https://github.com/danushvithiyarth/GitOps-Manifest-Repo.git
     targetRevision: HEAD
   sources: []
