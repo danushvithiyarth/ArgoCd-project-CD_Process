@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: java-app-deployment
+  name: argocd-project-deployment
   labels:
-    app: java-app
+    app: argocd-project
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: java-app
+      app: argocd-project
   template:
     metadata:
       labels:
-        app: java-app
+        app: argocd-project
     spec:
       containers:
-      - name: java-app
+      - name: argocd-project
         image: danushvithiyarth/java-app:latest
         ports:
         - containerPort: 80
