@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: argocd-project
-        image: danushvithiyarth/argocdproject:v24
+        image: danushvithiyarth/argocdproject:v25
         ports:
         - containerPort: 80
