@@ -4,7 +4,7 @@
 
 This repository focuses on the Continuous Deployment (CD) process using GitOps methodology with ArgoCD. The goal is to deploy containerized applications to a Kubernetes cluster using a fully automated pipeline.
 
-This repository contains Kubernetes manifests, ArgoCD declarative configurations, and Activity logs of all setup including monitoring setups. It works in conjunction with the CI Process Repository, where the application is built, tested, and pushed to DockerHub.
+This repository contains Kubernetes manifests, ArgoCD declarative configurations, and Activity logs of all setup including monitoring setups. It works in conjunction with the CI Process Repository, where the application is built, tested, and pushed to DockerHub. Additionally, a DNS configuration has been implemented to allow application access through a custom domain.
 
 ## Technologies Used
 
@@ -17,6 +17,8 @@ Kubernetes - Container orchestration
 Helm - Package manager for Kubernetes (used for installing ArgoCD, Prometheus, and Grafana)
 
 Nginx Ingress Controller - To manage ingress traffic
+
+Hostinger - DNS provider (used to purchase and configure "danushvithiyarth.in")
 
 Prometheus & Grafana - Monitoring and visualization of Kubernetes metrics
 
@@ -60,7 +62,15 @@ Prometheus & Grafana - Monitoring and visualization of Kubernetes metrics
 
 - ArgoCD detected the change, marked the application as out of sync, and after manual sync, it deployed the updated version.
 
-### 4. Monitoring with Prometheus & Grafana
+### 4.DNS Configuration for Application Access
+
+- Updated the Kubernetes Ingress configuration to include a host entry.
+
+- Added the DNS name to the Ingress file and mapped the Ingress Load Balancer link in the DNS record using Hostinger.
+
+- Outcome: The application became accessible via the configured DNS name over the internet.
+
+### 5.Monitoring with Prometheus & Grafana
 
 - Installed Prometheus & Grafana via Helm.
 
