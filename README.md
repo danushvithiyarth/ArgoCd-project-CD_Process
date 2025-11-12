@@ -71,9 +71,8 @@ Application source code built in the CI repository: [Boardgame](https://github.c
 ---
 
 ## 👤 Contributors
+**Danush Vithiyarth Jaiganesh** – DevOps Engineer 
 
-- **DevOps Implementation:** Danush Vithiyarth Jaiganesh  
-- **Application Source:** [Boardgame](https://github.com/jaiswaladi246/Boardgame.git)  
 
 ---
 
