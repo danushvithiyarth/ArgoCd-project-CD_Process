@@ -1,112 +1,80 @@
-# ArgoCD Project - CD Process
+# 🚀 ArgoCD Project – CD Pipeline
 
-## Introduction
+**Purpose:** This repository handles **Continuous Deployment (CD)** using **GitOps methodology with ArgoCD**.  
+It automatically deploys containerized applications to Kubernetes (AWS EKS) and integrates monitoring, ingress, and DNS management.
 
-This repository focuses on the Continuous Deployment (CD) process using GitOps methodology with ArgoCD. The goal is to deploy containerized applications to a Kubernetes cluster using a fully automated pipeline.
+Application source code built in the CI repository: [Boardgame](https://github.com/jaiswaladi246/Boardgame.git)
 
-This repository contains Kubernetes manifests, ArgoCD declarative configurations, and Activity logs of all setup including monitoring setups. It works in conjunction with the CI Process Repository, where the application is built, tested, and pushed to DockerHub. Additionally, a DNS configuration has been implemented to allow application access through a custom domain.
+---
 
-## Technologies Used
+## 🧰 Technologies & Tools
 
-Amazon EKS (Elastic Kubernetes Service) - Managed Kubernetes cluster
+| Category | Tools |
+|----------|-------|
+| Kubernetes | AWS EKS, kubectl |
+| GitOps | ArgoCD |
+| Deployment | Helm, Kubernetes manifests |
+| Ingress | NGINX Ingress Controller |
+| Monitoring | Prometheus, Grafana |
+| DNS | Hostinger, Ingress LoadBalancer |
 
-ArgoCD - GitOps-based continuous deployment
+---
 
-Kubernetes - Container orchestration
+## ⚡ CD Workflow Overview
 
-Helm - Package manager for Kubernetes (used for installing ArgoCD, Prometheus, and Grafana)
+1. **Kubernetes & ArgoCD Setup**
+   - Installed ArgoCD using Helm on EKS cluster.
+   - Configured declarative GitOps deployments.
 
-Nginx Ingress Controller - To manage ingress traffic
+2. **Application Deployment**
+   - Created Kubernetes manifests (Deployment, Service, HPA, Ingress).
+   - Defined ArgoCD Application declaratively.
+   - Manual sync performed initially for resources.
 
-Hostinger - DNS provider (used to purchase and configure "danushvithiyarth.in")
+3. **GitOps Integration**
+   - CI pipeline updates feature branches → CD manifests updated automatically.
+   - ArgoCD detects changes, syncs, and deploys updated images.
 
-Prometheus & Grafana - Monitoring and visualization of Kubernetes metrics
+4. **DNS Configuration**
+   - Ingress configured with host entry.
+   - DNS record mapped via Hostinger.
+   - Application accessible at custom domain.
 
-## Workflow
+5. **Monitoring Setup**
+   - Prometheus & Grafana installed via Helm.
+   - Scrapes metrics from ArgoCD and cluster resources.
+   - Dashboards provide deployment performance and cluster health.
 
-### 1. Setting Up Kubernetes & ArgoCD
+---
 
-- Deployed an EKS Cluster in AWS.
+## 📝 Activity Logs
 
-- Installed ArgoCD using Helm.
+- All deployment steps, ArgoCD sync screenshots, and monitoring dashboards are stored in the `Activity-Logs-CD_Machine` folder in this CD repository.
+- Provides visual confirmation of each stage of the pipeline.
 
-- Configured ArgoCD for declarative application deployment.
+---
 
-- Deployed Nginx Ingress Controller to manage external traffic.
+## 🔧 Troubleshooting Highlights
 
-### 2. Deploying the Application with ArgoCD
+- Kubernetes networking and HPA misconceptions addressed.
+- Prometheus service initially inaccessible → added ServiceMonitor matching Helm release.
+- ArgoCD resource sync errors resolved by manual initial sync.
 
-- Created Kubernetes manifests under the manifest/ directory.
+---
 
-- Included Deployment, Service, HPA, and Ingress configurations.
+## 🎯 Outcome
 
-- Defined an ArgoCD application declaratively under declarative-setup/.
+- Fully automated GitOps-based deployment workflow.
+- Continuous updates from CI → CD seamlessly managed by ArgoCD.
+- End-to-end monitoring and DNS-based application access ensured.
 
-- Used kubectl to create the ArgoCD application.
+---
 
-- Initially, resources were out of sync, so they were manually synced in ArgoCD.
+## 👤 Contributors
 
-### 3. Implementing GitOps Methodology
+- **DevOps Implementation:** Danush Vithiyarth Jaiganesh  
+- **Application Source:** [Boardgame](https://github.com/jaiswaladi246/Boardgame.git)  
 
-- Introduced a feature branch (feature-1) in the CI Process Repository to modify application code.
+---
 
-- Implemented additional Jenkins stages to:
-
-  * Build and push a new image for the feature branch.
-
-  * Test the updated application before merging.
-
-- Upon approval, merged the feature branch into main.
-
-- A final Jenkins stage automatically updated the CD Process Repository (manifest/deployment.yaml) with the new image tag.
-
-- ArgoCD detected the change, marked the application as out of sync, and after manual sync, it deployed the updated version.
-
-### 4.DNS Configuration for Application Access
-
-- Updated the Kubernetes Ingress configuration to include a host entry.
-
-- Added the DNS name to the Ingress file and mapped the Ingress Load Balancer link in the DNS record using Hostinger.
-
-- Outcome: The application became accessible via the configured DNS name over the internet.
-
-### 5.Monitoring with Prometheus & Grafana
-
-- Installed Prometheus & Grafana via Helm.
-
-- Configured Prometheus to scrape metrics from ArgoCD.
-
-- Created a Grafana dashboard to visualize deployment performance and cluster health.
-
-## Troubleshooting
-
-### 1.Kubernetes Networking Misconceptions
-
-- Private/public subnet segmentation is not always needed as Service types and Network Policies manage access control.
-
-- Application Gateway Service (AGS) is not mandatory when using Kubernetes Ingress controllers like NGINX, ALB, or Traefik.
-
-- Horizontal Pod Autoscaler (HPA) is for scaling pods and does not manage ingress traffic.
-
-### 2.Prometheus Service Accessibility Issue:
-
-- Installed Prometheus and Grafana using the Kube-stack Prometheus Helm chart.
-
-- Grafana was accessible over the internet, but Prometheus was not.
-
-- Possible Cause: Service misconfiguration for Prometheus.
-
-- Workaround: Since Prometheus was still running, added a ServiceMonitor resource matching the Helm release name.
-
-- Outcome: Prometheus pulled ArgoCD metrics and sent them to Grafana, ensuring metrics were visible on the dashboard.
-
-## Contributors & Credits
-
-DevOps Implementation: Danush Vithiyarth Jaiganesh - DevOps Engineer
-
-Application Source Code: Boardgame Repository - "https://github.com/jaiswaladi246/Boardgame.git"
-
-GitOps Automation & Infrastructure as Code: Danush Vithiyarth Jaiganesh - DevOps Engineer
-
-## Note:
-This repository focuses on GitOps-driven Continuous Deployment (CD) process using Kubernetes and ArgoCD. The CI process (building and testing the application) is handled in the CI Process Repository - "https://github.com/danushvithiyarth/ArgoCd-project-CI_Process.git".
+> **Note:** This repository only handles **CD (deployment & monitoring)**. The **CI process** (build, test, push) is in the separate repository: [ArgoCD Project – CI Process](https://github.com/danushvithiyarth/ArgoCd-project-CI_Process.git)
